@@ -10,6 +10,8 @@ import org.json.JSONObject;
 import org.json.JSONException;
 import android.util.Log;
 import androidx.annotation.Nullable;
+import android.os.Handler;
+import android.os.Looper;
 public class RNOrderPlaceSdkAigensModule extends ReactContextBaseJavaModule {
 
   private final ReactApplicationContext reactContext;
@@ -44,13 +46,21 @@ public class RNOrderPlaceSdkAigensModule extends ReactContextBaseJavaModule {
         options.putOpt("member", member);
         options.putOpt("features", features);
         options.putOpt("systemOpenUrl",protocolArray);
+        // uat
+        String url = "https://www.google.com.hk/";
+        // prd
+        // String url = "...";
+        Handler mainHandler = new Handler(Looper.getMainLooper());
+        mainHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                OrderPlace.openUrl(this.reactContext, url, options);
+            }
+        });
+        
     } catch (JSONException e) {
     }
-    // uat
-    String url = "https://www.google.com.hk/";
-    // prd
-    // String url = "...";
-    OrderPlace.openUrl(this.reactContext, url, options);
+    
 
   }
 
