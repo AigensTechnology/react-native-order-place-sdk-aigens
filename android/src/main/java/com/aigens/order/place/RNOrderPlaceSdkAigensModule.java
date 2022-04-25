@@ -50,13 +50,19 @@ public class RNOrderPlaceSdkAigensModule extends ReactContextBaseJavaModule {
         String url = "https://www.google.com.hk/";
         // prd
         // String url = "...";
-        Handler mainHandler = new Handler(Looper.getMainLooper());
-        mainHandler.post(new Runnable() {
+        this.reactContext.runOnUiQueueThread(new Runnable() {
             @Override
             public void run() {
-                OrderPlace.openUrl(this.reactContext, url, options);
+                OrderPlace.openUrl(getCurrentActivity(), url, options);
             }
         });
+        // Handler mainHandler = new Handler(Looper.getMainLooper());
+        // mainHandler.post(new Runnable() {
+        //     @Override
+        //     public void run() {
+        //         OrderPlace.openUrl(this.reactContext, url, options);
+        //     }
+        // });
         
     } catch (JSONException e) {
     }
